@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Settings - Welfy Connect</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,500,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      /* Light Theme Variables */
+      --bg-main: url('1.jpg') no-repeat center center/cover;
+      --glass-bg: rgba(255,255,255,0.24);
+      --glass-blur: 18px;
+      --header-footer-bg: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(245,245,245,0.7));
+      --header-footer-color: #232c50;
+      --text-main: #232c50;
+      --text-subtle: #525e72;
+      --icon-filter: none;
+      --option-hover: rgba(0,123,255,0.10);
+      --option-divider: rgba(80,90,110,0.14);
+      --toggle-bg: #f2f4fa;
+      --toggle-ball: #007bff;
+    }
+    body.dark {
+      --bg-main: url('https://elie.net/_astro/understanding-the-online-safety-and-privacy-challenges-faced-by-south-asian-women.BTBibnrd_ywdxC.jpg') no-repeat center center/cover;
+      --glass-bg: rgba(26,33,46,0.44);
+      --glass-blur: 23px;
+      --header-footer-bg: linear-gradient(135deg,rgba(27,38,48,.94) 81%, rgba(34,38,58,.78));
+      --header-footer-color: #fff;
+      --text-main: #fff;
+      --text-subtle: #d2e6f2;
+      --icon-filter: brightness(1.6) invert(1) grayscale(1);
+      --option-hover: rgba(40,144,255,0.15);
+      --option-divider: rgba(220,230,249,0.10);
+      --toggle-bg: #23263b;
+      --toggle-ball: #52e4ff;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      min-height: 100vh;
+      background: var(--bg-main);
+      background-size: cover;
+      color: var(--text-main);
+      transition: background 0.3s, color 0.3s;
+    }
+    .header-bar {
+      width: 100vw;
+      position: fixed;
+      top: 0; left: 0; z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 54px;
+      background: var(--header-footer-bg);
+      color: var(--header-footer-color);
+      box-shadow: 0 1px 12px rgba(0,0,0,0.08);
+      backdrop-filter: blur(7px);
+      font-weight: 600;
+    }
+    .header-links {
+      margin-right: 32px;
+      display: flex;
+      gap: 18px;
+    }
+    .header-link {
+      background: rgba(255,255,255,0.78);
+      padding: 7px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #0951b8;
+      font-weight: 600;
+      font-size: 1em;
+      border: 1px solid #e4e7ed;
+      box-shadow: 0 1.5px 9px #fff6e7aa;
+      transition: background 0.15s, color 0.15s;
+    }
+    .header-link:hover {
+      background: #e0e7ee;
+      color: #1670ff;
+    }
+    .settings-bg {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center;
+      padding: 76px 0 70px 0;
+    }
+    .glass-settings {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(22, 26, 56,.12);
+      padding: 38px 0 15px 0;
+      width: 100%;
+      max-width: 415px;
+      margin: 0 auto 28px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1.2px solid rgba(255,255,255,0.18);
+    }
+    .settings-title {
+      font-size: 2em; font-weight: 700;
+      color: var(--text-main); text-align: center;
+      margin-bottom: 21px;
+      letter-spacing: 0.04em;
+    }
+    /* Theme toggle */
+    .theme-toggle-row {
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 17px; gap: 15px;
+    }
+    .toggle-label {
+      font-size: 1.08em; color: var(--text-subtle); font-weight:600;
+      margin-right: 4px;
+      user-select: none;
+    }
+    .toggle-switch {
+      width: 54px; height: 28px; position: relative;
+      background: var(--toggle-bg);
+      border-radius: 16px; cursor: pointer;
+      transition: background 0.22s;
+      border: 1.3px solid #e2eafd44;
+      box-shadow: 0 1px 5px rgba(8,16,32,0.10);
+      display: flex; align-items: center;
+    }
+    .toggle-ball {
+      width: 25px; height: 25px;
+      background: var(--toggle-ball);
+      border-radius: 50%; position: absolute; top: 1.1px; left: 1.2px;
+      transition: left 0.29s cubic-bezier(0.51,0.15,0.28,0.86), background 0.21s;
+      box-shadow: 0 1px 4px #08eec3ab;
+    }
+    body.dark .toggle-ball { left: 27px; background: var(--toggle-ball);}
+    .toggle-icon {
+      width: 18px; height: 18px; position: absolute; pointer-events: none;
+      top: 5px;
+      opacity: 0.67;
+    }
+    .toggle-icon.sun { left: 6px; }
+    .toggle-icon.moon { right: 6px; }
+    /* Settings List */
+    .settings-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .settings-option {
+      display: flex; align-items: center; gap: 17px;
+      cursor: pointer;
+      padding: 18px 32px 18px 24px;
+      border: none; background: transparent;
+      color: var(--text-main);
+      font-size: 1.12em;
+      border-bottom: 1px solid var(--option-divider);
+      outline: none;
+      transition: background 0.18s, color 0.18s;
+      position: relative;
+    }
+    .settings-option:last-child { border-bottom: none; }
+    .settings-option:hover, .settings-option:focus-visible {
+      background: var(--option-hover);
+      color: var(--toggle-ball);
+    }
+    .settings-icon {
+      width: 23px; height: 23px; display: flex; align-items: center; justify-content: center;
+      filter: var(--icon-filter);
+      opacity: 0.97;
+      font-size: 1.08em;
+    }
+    .arrow-icon {
+      margin-left: auto;
+      width: 19px; height: 19px; opacity: 0.47;
+      filter: var(--icon-filter);
+      font-size: 1em;
+    }
+    .footer-bar {
+      width: 100vw;
+      background: rgba(255,255,255,0.93);
+      color: #232c50;
+      text-align: center;
+      padding: 5px 0 10px 0;
+      font-size: 1.05em;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 55;
+      letter-spacing: 0.4px;
+      font-weight: 500;
+      box-shadow: 0 -2px 9px #dde7e9bb;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+    .footer-links {
+      color: #1670ff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 7px;
+      transition: color 0.13s;
+    }
+    .footer-links:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+    @media (max-width: 640px) {
+      .glass-settings { padding: 11px 0 2px 0; min-width: 0; max-width:97vw;}
+      .settings-title { font-size: 1.23em;}
+      .settings-option { padding:13px 7vw 13px 4vw; font-size:.97em;}
+      .footer-bar { font-size: 0.97em; padding: 10px 0 11px 0;}
+      .header-bar { padding: 0 6px;}
+      .header-link { padding: 8px 7px; font-size: .97em;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header-bar">
+    <nav class="header-links" role="navigation" aria-label="Primary Navigation">
+      <a class="header-link" href="home.html">Home</a>
+      <a class="header-link" href="options.html">Services</a>
+      <a class="header-link" href="aalogin.html">Logout</a>
+    </nav>
+  </div>
+  <main>
+    <div class="settings-bg">
+      <section class="glass-settings" aria-label="Settings Menu">
+        <div class="settings-title">Settings</div>
+        <!-- Theme toggle row -->
+        <div class="theme-toggle-row" tabindex="0">
+          <span class="toggle-label">Theme:</span>
+          <div class="toggle-switch" tabindex="0" aria-label="Toggle Light/Dark Theme" id="themeToggle">
+            <span class="toggle-icon sun">☀️</span>
+            <span class="toggle-icon moon">🌙</span>
+            <span class="toggle-ball"></span>
+          </div>
+        </div>
+        <!-- Settings options list -->
+        <div class="settings-list">
+          <button class="settings-option" tabindex="0">
+            <span class="settings-icon">👤</span>
+            Account
+            <span class="arrow-icon">›</span>
+          </button>
+          <button class="settings-option" tabindex="0">
+            <span class="settings-icon">🔔</span>
+            Notification
+            <span class="arrow-icon">›</span>
+          </button>
+          <button class="settings-option" tabindex="0">
+            <span class="settings-icon">👁️</span>
+            Appearance
+            <span class="arrow-icon">›</span>
+          </button>
+          <button class="settings-option" tabindex="0">
+            <span class="settings-icon">🔒</span>
+            Privacy &amp; Security
+            <span class="arrow-icon">›</span>
+          </button>
+          <button class="settings-option" tabindex="0">
+            <span class="settings-icon">🎧</span>
+            Help and Support
+            <span class="arrow-icon">›</span>
+          </button>
+          <button class="settings-option" tabindex="0">
+            <span class="settings-icon">❓</span>
+            About
+            <span class="arrow-icon">›</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="footer-bar">
+    &copy; 2025 @welfyconnect.com
+    <a class="footer-links" href="about.html">About Us</a>
+  </footer>
+  <script>
+    // Theme toggle
+    const htmlBody = document.body;
+    const toggle = document.getElementById('themeToggle');
+    function setTheme(isDark) {
+      if(isDark) htmlBody.classList.add('dark');
+      else htmlBody.classList.remove('dark');
+      try { localStorage.setItem('siteTheme', isDark ? 'dark':'light'); } catch {}
+    }
+    function detectAndSetTheme() {
+      let theme = null;
+      try { theme = localStorage.getItem('siteTheme'); } catch {}
+      if(theme === "dark" || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches))
+        setTheme(true);
+      else setTheme(false);
+    }
+    toggle.onclick = () => setTheme(!htmlBody.classList.contains('dark'));
+    toggle.onkeydown = (e) => {
+      if(e.key === " " || e.key === "Enter") {
+        setTheme(!htmlBody.classList.contains('dark'));
+      }
+    };
+    detectAndSetTheme();
+  </script>
+</body>
+</html>

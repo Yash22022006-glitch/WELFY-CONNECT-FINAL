@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welfy Connect – Login</title>
+    <!-- FontAwesome for social icons -->
+    <link rel="stylesheet" href="Logo.png"> 
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #222;
+        }
+        .container {
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+            background: url('1.jpg') no-repeat center center/cover;
+        }
+        .left-pane {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+            padding-left: 7vw;
+            padding-right: 4vw;
+            background: rgba(0,0,0,0.34);
+        }
+        .left-pane h1 {
+            font-size: 3em;
+            margin: 0 0 18px 0;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .left-pane p {
+            font-size: 1em;
+            margin-bottom: 24px;
+            color: #e0e0e0;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            margin-right: 18px;
+            color: #fff;
+            font-size: 1.3em;
+            text-decoration: none;
+        }
+        .right-pane {
+            flex: 1.1;
+            background: rgba(255,255,255,0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 350px;
+        }
+        .login-form {
+            width: 94%;
+            max-width: 370px;
+            background: none;
+        }
+        .logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 16px auto;
+        }
+        .login-form h2 {
+            margin: 0 0 21px 0;
+            font-size: 1.7em;
+            letter-spacing: 1px;
+            text-align: center;
+            color: #1e222c;
+            font-weight: 700;
+        }
+        .login-form label {
+            color: #444;
+            font-weight: 500;
+            margin-bottom: 7px;
+            display: block;
+        }
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 11px;
+            margin-bottom: 17px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: #f6f6f6;
+            font-size: 1em;
+        }
+        .forgot-signup {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .forgot-signup a {
+            color: #ff6600;
+            text-decoration: none;
+            font-size: 0.96em;
+        }
+        .forgot-signup a:hover {
+            text-decoration: underline;
+        }
+        .login-form button {
+            background: #ff6600;
+            color: #fff;
+            padding: 13px 0;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background 0.2s;
+        }
+        .login-form button:hover {
+            background: #e05500;
+        }
+        .no-account {
+            text-align: center;
+            font-size: 0.97em;
+            color: #444;
+        }
+        .no-account a {
+            color: #4448e9;
+            text-decoration: none;
+            margin-left: 6px;
+        }
+        .no-account a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .left-pane {
+                padding: 38px 24px 24px 24px;
+                align-items: center;
+                text-align: center;
+            }
+            .right-pane { min-width: 0; padding: 32px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Welcome Pane -->
+        <div class="left-pane">
+            <h1>Welcome<br>Warriors</h1>
+            <p>
+                "Alone we can do so little; together we can do so much. Welfy Connect connects you with a community ready to help in every emergency. Your courage in seeking help and your kindness in offering it together create a safer, stronger world for all."
+            </p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <!-- Right Login Form Pane -->
+        <div class="right-pane">
+            <form class="login-form" autocomplete="off">
+                <img src="Logo.png" alt="Logo" class="logo">
+                <h2>WELFY CONNECT</h2>
+                <label for="userid">User ID</label>
+                <input type="text" id="userid" placeholder="Enter your user ID" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                
+                <div class="forgot-signup">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                
+                <button type="submit">Login</button>
+                
+                <div class="no-account">
+                    Don't have an account?
+                    <a href="Signup.html">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Services - Welfy Connect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: url('1.jpg') no-repeat center center/cover;
+        }
+        .header-bar {
+            width: 100vw;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 99;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            background: rgba(255,255,255,0.11);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0.5px 11px #fff7;
+        }
+        .glassy-back-btn {
+            margin-left: 26px;
+            background: rgba(255,255,255,0.30);
+            color: #232c50;
+            border: none;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 14px #fff8, 0 1.5px 5px #e8e8e855;
+            backdrop-filter: blur(10px);
+            transition: background 0.15s, color 0.13s;
+            text-decoration: none;
+            outline: none;
+            border: 1.5px solid rgba(255,255,255,0.22);
+        }
+        .glassy-back-btn span {
+            margin-right: 10px;
+            font-size: 1.20em;
+        }
+        .glassy-back-btn:hover {
+            background: rgba(255,255,255,0.48);
+            color: #0056b3;
+        }
+        .header-links {
+            margin-right: 30px;
+            display: flex;
+            gap: 18px;
+        }
+        .header-link {
+            background: rgba(255,255,255,0.73);
+            padding: 9px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            color: #0951b8;
+            font-weight: 600;
+            font-size: 1.07em;
+            border: 1px solid #e4e7ed;
+            box-shadow: 0 1.5px 7px #fff6e7aa;
+            margin-left: 2px;
+            transition: background 0.13s, color 0.13s;
+        }
+        .header-link:hover {
+            background: #e0e7ee;
+            color: #1670ff;
+        }
+        .page-wrapper {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .title {
+            font-size: 2.2em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-top: 100px;
+            text-shadow: 0 2px 12px #fffbeec4;
+        }
+        .services-grid {
+            max-width: 1200px;
+            width: 95vw;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            justify-items: center;
+        }
+        .service-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 22px 0 rgba(35,42,88,0.11);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 25px;
+            position: relative;
+            transition: box-shadow 0.21s, transform 0.22s;
+            border: 1.5px solid #eaeaec;
+            min-width: 280px; max-width: 350px;
+            margin: 0 auto;
+        }
+        .service-card:hover {
+            box-shadow: 0 12px 38px 0 rgba(0,123,255,0.10);
+            transform: translateY(-4px) scale(1.022);
+        }
+        .service-image {
+            width: 100%;
+            aspect-ratio: 4/2.2;
+            object-fit: cover;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 6px 20px rgba(70,80,140,0.09);
+        }
+        .service-content {
+            flex: 1;
+            padding: 18px 24px 0 24px;
+        }
+        .service-icon-text {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 7px;
+        }
+        .service-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 9px;
+            color: #0a2540;
+        }
+        .service-desc {
+            color: #232c50;
+            margin-bottom: 19px;
+            font-size: 1em;
+            line-height: 1.45;
+        }
+        .service-btn {
+            background: linear-gradient(90deg,#007bff 35%,#0056b3 100%);
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            border: none;
+            border-radius: 7px;
+            padding: 12px 0;
+            margin: 0 24px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 2.5px 8px rgba(3, 30, 74, 0.11);
+            transition: background 0.18s, transform 0.19s;
+            outline: none;
+        }
+        .service-btn:hover {
+            background: linear-gradient(90deg,#0056b3 55%, #003d80 100%);
+            transform: scale(1.03);
+        }
+        .footer-bar {
+            width: 100vw;
+            background: rgba(255,255,255,0.91);
+            color: #232c50;
+            text-align: center;
+            padding: 5px 0 10px 0;
+            font-size: 1.05em;
+            position: fixed;
+            left: 0; bottom: 0;
+            z-index: 55;
+            letter-spacing: 0.7px;
+            font-weight: 500;
+            box-shadow: 0 -2px 13px #dde7e9bb;
+        }
+        .footer-links {
+            color: #1670ff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 12px;
+            transition: color 0.15s;
+        }
+        .footer-links:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        @media (max-width: 670px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .glassy-back-btn { left: 9px; top: 11px; font-size: 0.93em; }
+            .title { margin-bottom: 18px; font-size: 1.1em;}
+            .header-bar { height: 54px;}
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header-bar">
+        <button class="glassy-back-btn" onclick="window.history.back()"><span>&larr;</span>Back</button>
+        <div class="header-links">
+            <a class="header-link" href="Home.html">Home</a>
+            <a class="header-link" href="Settings.html">Settings</a>
+            <a class="header-link" href="volunteer_register.html">Volunteer</a>
+            <a class="header-link" href="aalogin.html">Logout</a>
+        </div>
+    </div>
+    <div class="page-wrapper">
+        <div class="title">Available Services</div>
+        <div class="services-grid">
+            <!-- Service 1: Hospital -->
+            <div class="service-card">
+                <img src="https://static.vecteezy.com/system/resources/previews/011/640/711/non_2x/simple-modern-hospital-logo-with-healthcare-medical-template-vector.jpg" alt="Hospital" class="service-image">
+                <div class="service-content">
+                    <span class="service-icon-text">🏥</span>
+                    <div class="service-title">Hospital Emergency</div>
+                    <div class="service-desc">
+                        Find the nearest volunteers who can help you during medical emergencies. Support is available 24/7.
+                    </div>
+                </div>
+                <button class="service-btn" onclick="window.location.href='Hospital.html'">Get Help</button>
+            </div>
+            <!-- Service 2: Women Safety -->
+            <div class="service-card">
+                <img src="https://northeastlive.s3.amazonaws.com/media/uploads/2024/08/women-lipika.jpg" alt="Women Safety" class="service-image">
+                <div class="service-content">
+                    <span class="service-icon-text">🚨</span>
+                    <div class="service-title">Women Safety</div>
+                    <div class="service-desc">
+                        Instantly alert and connect with nearby volunteers in critical women’s safety situations. Discreet and rapid response, anytime.
+                    </div>
+                </div>
+                <button class="service-btn" onclick="window.location.href='Womensafety.html'">Get Help</button>
+            </div>
+            <!-- Service 3: Child Care -->
+            <div class="service-card">
+                <img src="https://www.shutterstock.com/image-vector/care-kids-vommunity-protecting-children-600nw-2301756285.jpg" alt="Child Care" class="service-image">
+                <div class="service-content">
+                    <span class="service-icon-text">👶</span>
+                    <div class="service-title">Child Care Emergency</div>
+                    <div class="service-desc">
+                        In dangerous situations involving children, get in touch with trained volunteers around you with just one tap.
+                    </div>
+                </div>
+                <button class="service-btn" onclick="window.location.href='Child.html'">Get Help</button>
+            </div>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <div class="footer-bar">
+        &copy; 2025 @welfyconnect.com
+        <a class="footer-links" href="about.html">About Us</a>
+    </div>
+</body>
+</html>

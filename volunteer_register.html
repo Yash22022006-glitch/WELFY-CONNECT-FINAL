@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welfy Connect – Volunteer Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #222;
+      position: relative;
+    }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      background: url('1.jpg') no-repeat center center/cover;
+    }
+    .left-pane {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #fff;
+      padding-left: 7vw;
+      padding-right: 4vw;
+      background: rgba(0,0,0,0.34);
+    }
+    .left-pane h1 {
+      font-size: 3em;
+      margin: 0 0 18px 0;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .left-pane p {
+      font-size: 1em;
+      margin-bottom: 24px;
+      color: #e0e0e0;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      margin-right: 18px;
+      color: #fff;
+      font-size: 1.3em;
+      text-decoration: none;
+    }
+    .right-pane {
+      flex: 1.1;
+      background: rgba(255,255,255,0.94);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      min-width: 350px;
+      position: relative;
+    }
+    .volunteer-form-panel {
+      width: 94%;
+      max-width: 390px;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 16px auto;
+      border-radius: 50%;
+    }
+    .volunteer-form-panel h2 {
+      margin: 0 0 21px 0;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e222c;
+      font-weight: 700;
+    }
+    .vol-id-label {
+      font-size: 1.06em;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #8d7f6a;
+      letter-spacing: 0.15px;
+      text-align: center;
+    }
+    form {
+      width: 100%;
+      margin-bottom: 21px;
+    }
+    label {
+      color: #444;
+      font-weight: 500;
+      margin-bottom: 7px;
+      display: block;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 11px;
+      margin-bottom: 14px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      background: #f6f6f6;
+      font-size: 1em;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    #location {
+      position: relative;
+      z-index: 2;
+    }
+    /* autocomplete suggestions */
+    #location-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 180px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1em;
+      color: #222;
+      display: none;
+      z-index: 1000;
+    }
+    #location-suggestions div {
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+    #location-suggestions div:hover {
+      background: #f2f2f2;
+    }
+    .checkbox-group {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: #444;
+      cursor: pointer;
+    }
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .volunteer-form-panel button {
+      width: 100%;
+      padding: 13px 0;
+      background: #fd7b02;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.07em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.22s ease;
+    }
+    .volunteer-form-panel button:hover {
+      background: #e36200;
+    }
+    .history-section {
+      width: 100%;
+      margin-top: 12px;
+    }
+    .history-section h3 {
+      margin-bottom: 14px;
+      color: #b06f1c;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      font-size: 1.15em;
+    }
+    .history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: #fff9ed;
+      border-radius: 8px;
+      border: 1px solid #ffedc7;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .history-list li {
+      padding: 12px 18px;
+      border-bottom: 1px solid #ffebc9;
+      font-size: 1em;
+      color: #5e3d0d;
+    }
+    .history-list li:last-child {
+      border-bottom: none;
+    }
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .report-title {
+      font-weight: 700;
+      color: #ec8b1f;
+      font-size: 1.1em;
+    }
+    .details-button {
+      padding: 4px 10px;
+      font-size: 0.9em;
+      border: none;
+      background: #fd7b02;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .details-button:hover {
+      background: #e06402;
+    }
+    .report-details {
+      margin-top: 8px;
+      font-size: 0.95em;
+      color: #7e5e1f;
+      display: none;
+      line-height: 1.4;
+    }
+    @media(max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .left-pane, .right-pane {
+        width: 100%;
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="javascript:history.back()" class="back-btn" style="position: fixed; top: 16px; right: 24px; z-index: 1000; background: #fd7b02; color: white; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Montserrat', Arial, sans-serif; text-decoration: none;">&larr; Back</a>
+
+  <div class="container">
+    <div class="left-pane">
+      <h1>Welcome<br>Volunteer</h1>
+      <p>“United in action, we make a difference. Welfy Connect Volunteers bring hope and help where it matters most. Thank you for stepping up!”</p>
+    </div>
+
+    <div class="right-pane">
+      <div class="volunteer-form-panel">
+        <img src="Logo.png" alt="Logo" class="logo" />
+        <h2>WELFY CONNECT VOLUNTEER</h2>
+        <div class="vol-id-label">Volunteer ID: VLY001 (example)</div>
+        <form id="rescue-form" autocomplete="off">
+          <label for="location">Rescue Location</label>
+          <div style="position: relative;">
+            <input type="text" id="location" name="location" placeholder="Enter location" required />
+            <div id="location-suggestions"></div>
+          </div>
+
+          <label for="victimCount">Number of People Rescued</label>
+          <input type="number" id="victimCount" name="victimCount" min="1" placeholder="Enter number" required />
+
+          <label for="additionalInfo">Additional Information</label>
+          <textarea id="additionalInfo" name="additionalInfo" rows="3" placeholder="Any details or notes"></textarea>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="backService" name="backService" />
+            <label for="backService">Back Service</label>
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+
+        <div class="history-section">
+          <h3>Rescue History</h3>
+          <ul id="history-list" class="history-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="text-align: center; padding: 15px; color: white; background: #111;">
+    &copy; 2025 Welfy Connect • All Rights Reserved
+  </footer>
+
+  <script>
+    const areaList = [
+      "Chennai", "Anna Nagar", "T. Nagar", "Adyar", "Velachery", "Triplicane", "Guindy", "Kodambakkam", "Besant Nagar", "Mylapore", "Perambur", "Nungambakkam", "Ambattur", "Egmore", "Porur", "Tambaram", "Sholinganallur", "Medavakkam", "Alandur", "Chromepet", "Pallavaram", "Kotturpuram", "Royapettah", "Saidapet", "Teynampet", "Purasaiwakkam", "Ekkatuthangal", "Madhavaram", "Kilpauk", "Ayanavaram", "Valasaravakkam", "Velacherry", "Koyambedu", "Padi", "Avadi", "Kanchipuram", "Chengalpattu", "Sriperumbudur", "Arakkonam", "Puliyur", "Walajapet", "Vellore", "Tirupattur", "Ranipet", "Arani", "Ambur", "Gudiyattam", "Tiruvannamalai", "Thiruvallur", "Ponneri", "Gummidipoondi", "Minjur", "Sengundram (Red Hills)", "Kovilpatti", "Sivakasi", "Virudhunagar", "Madurai", "Samanthurai", "Natham", "Usilampatti", "Melur", "Thirumangalam", "Dindigul", "Palani", "Kodaikanal", "Oddanchatram", "Karur", "Tiruchirappalli", "Manaparai", "Lalgudi", "Srirangam", "Ariyalur", "Perambalur", "Pudukkottai", "Kumbakonam", "Thanjavur", "Orathanadu", "Karaikal", "Nagapattinam", "Mayiladuthurai", "Tirunelveli", "Tenkasi", "Sankarankovil", "Nagercoil", "Kanyakumari", "Rameswaram", "Sivaganga", "Ramanathapuram", "Paramakudi", "Keelakarai", "Pudukottai", "Kovilpatti", "Thoothukudi (Tuticorin)", "Kovilpatti", "Vilathikulam", "Sattankulam", "Kovilpatti", "Kayathar", "Kallakurichi", "Salem", "Edappadi", "Mettur", "Omalur", "Attur", "Yercaud", "Namakkal", "Rasipuram", "Tiruppur", "Avinashi", "Palladam", "Kangeyam", "Uthukuli", "Pollachi", "Valparai", "Coimbatore", "Gandhipuram", "Peelamedu", "Saibaba Colony", "Singanallur", "Sankarankovil", "Mettupalayam", "Karamadai", "Kovai (Coimbatore) North", "Sulur", "Kinathukadavu", "Periyanaickenpalayam", "Kovilpalayam", "Annur", "Thondamuthur", "Kallakurichi", "Cuddalore", "Kattumannarkoil", "Bhuvanagiri", "Chidambaram", "Virudhachalam", "Panruti", "Vikravandi", "Marakkanam", "Tiruvannamalai", "Cheyyar", "Kaveripakkam", "Arakkonam", "Vaniyambadi", "Ambur", "Gudiyattam", "Kallakurichi Town", "Tirupathur", "Hosur", "Krishnagiri", "Pochampalli", "Uthangarai", "Narayankuppam", "Krishnagiri Town", "Dharmapuri", "Palacode", "Pennagaram", "Salem Bypass areas", "Kattankulathur", "Mahabalipuram (Mamallapuram)", "Kovalam", "ECR (East Coast Road)areas", "Marakkanam", "Vedalai", "Pondicherry (Puducherry-region border towns)", "Villupuram", "Tindivanam", "Vanur", "Gingee", "Ariyalur Town", "Lalgudi Town", "Kulithalai", "Perambalur Town", "Andimadam", "Vedaranyam", "Thiruvarur", "Mannargudi", "Koothanallur", "Kumbakonam Town", "Poompuhar (Nagai coast)", "Mayiladuthurai Town", "Karaikal Town", "Karaikudi", "Devakottai", "Ilayangudi", "Sivagangai Town", "Tiruchuli", "Paramakudi Town", "Vedaranyam", "Vellore City", "Srinivaspuram", "Kalasapakkam", "Tirukoilur", "Thiruvarur", "Nagapattinam Town", "Velanganni", "Coonoor", "Ooty (Udhagamandalam)", "Kotagiri", "Gundlupet-border areas", "Udhagamandalam", "Kodaikanal Town", "Palayamkottai", "Cheranmahadevi", "Manonmaniam", "Pappireddipatti", "Sankagiri", "Attur Town", "Tharamangalam", "Edappadi Town", "Mettur Town", "Omalur Town", "Salem New Bus Stand area", "Kolli Hills region towns", "Karuppur", "Perundurai", "Gobichettipalayam", "Bhavani", "Bhavani Kattalai", "Kodumudi", "Erode", "Erode Clock Tower area", "Suriyampalayam", "Nasiyanur", "Chennimalai", "Kanjikoil", "Pallipalayam", "Modakurichi", "Athani", "Sathyamangalam", "Tharamangalam town", "Namakkal Town", "Tiruchengode", "Paramathi-Velur", "Kolli Hills foothills", "Kallakurichi region towns", "Ulundurpettai", "Thirukovilur", "Panruti Town", "Cuddalore Town", "Vadalur", "Bhuvanagiri Town", "Nellikuppam", "Karaikal border towns", "Thirukazhukundram", "Uthiramerur", "Tirukkalukundram", "Walajapet Town", "Vellore Cantonment", "Arcot", "Melvisharam", "Cheyyar Town", "Kanchipuram Town", "Sriperumbudur Town", "Ambattur Industrial Estate", "Perambur Railway Colony", "Ammankulam", "Moolakadai", "Korukkupet", "Tondiarpet", "Gandhi Nagar (Chennai)", "Shenoy Nagar", "Poes Garden area", "Mount Road (Anna Salai)", "Nageswaran Nagar", "Raja Annamalaipuram (R.A. Puram)", "Adambakkam", "Okkiyam Thuraipakkam", "Kanathur", "Pazhaverkadu (Pulicat)", "Kattupakkam", "Varadharajapuram", "Kolathur", "Sembium", "Saidapet Market", "West Mambalam", "T. Nagar West", "Nanganallur", "St. Thomas Mount", "Medu", "T. Nagar East", "Kodai Road (Theni-Kodaikanal access)", "Bodinayakanur", "Periyakulam", "Sivakasi Town", "Rajapalayam", "Srivilliputhur", "Sankarankovil Town", "Tirunelveli Town", "Palayamkottai Town", "Cheranmahadevi Town", "Shenkottai", "Alangulam", "Ambasamudram", "Kovilpatti Town", "Vickramasingapuram", "Kovilpatti outskirts", "Thoothukudi Town", "Tirunelveli Junction area", "Kovilpatti Market", "Vandiperiyar-border localities", "Devathanam", "Munnar-adjacent villages", "Kovilvenni", "Mannargudi Town", "Sankarapuram", "Villupuram Town", "Kallakurichi Market Area", "Tindivanam Town", "Marakkanam Town", "Auroville-border villages", "Puducherry periphery towns", "Tharangambadi (Tranquebar)", "Mayavaram (Mayiladuthurai)", "Cuddalore Port area", "Sirkazhi", "Thiruvarur Town", "Muthupet", "Kovilvenni Town", "Tharangambadi Town", "Vellakoil", "Erode Central", "Lakkapuram", "Udagamandalam (Ooty) Estate areas", "Ketti", "Coonoor Market", "Mettupalayam Town", "Avinashi Town", "Kovilpatti Industrial area", "Sankarankovil Market", "Kovilpatti East", "Keezhapalur", "Vedapatti", "Annur Town", "Sulur Town", "Valparai Hills area", "Pollachi Town", "Tiruppachetti", "Kadayampatti", "Vellakulam", "Chengalpattu Town", "Madhuranthakam", "Thirukazhukundram Town", "Kancheepuram Fort area", "Pallavaram Market", "Chromepet East", "Pammal", "Pozhichalur", "Keelkattalai", "Meenambakkam", "Tirusulam", "Airport Colony (Chennai)", "Nandambakkam", "Guindy Industrial Estate", "Thoraipakkam", "Perungudi", "Karapakkam", "Sirusal", "Sembarambakkam", "Vandalur", "Sunguvarchatram", "Arumbakkam", "Kilpauk Garden", "Chetpet", "T. Nagar Bazaar", "Royapuram", "Washermanpet", "Purasaiwakkam North", "Perumbakkam", "Siruseri (IT park area)", "Mahabalipuram Coast", "Kovalam Beach area", "Palavakkam", "Kottivakkam", "Nanganallur Temple area", "Vyasarpadi", "Semmencherry", "Adayar Velachery link", "Kottur", "Mudichur", "Tambaram Sanatorium", "Sembarambakkam Lake area", "Thiruvottiyur", "Manali", "Tondiarpet Dock area", "Iyyappanthangal", "Porur Lake area", "Nellikuppam Town", "Andimadam Town", "Thiruvenkadu", "Sankaralingapuram", "Kallidaikurichi", "Pachadi", "Ramnad (Ramanathapuram) Town"
+    ];
+
+    const locationInput = document.getElementById('location');
+    const suggestionsBox = document.getElementById('location-suggestions');
+
+    locationInput.addEventListener('input', () => {
+      const val = locationInput.value.trim().toLowerCase();
+      suggestionsBox.innerHTML = '';
+      if (!val) {
+        suggestionsBox.style.display = 'none';
+        return;
+      }
+      const filtered = areaList.filter(area => area.toLowerCase().includes(val)).slice(0, 7);
+      if (filtered.length === 0) {
+        suggestionsBox.style.display = 'none';
+        return;
+      }
+      filtered.forEach(area => {
+        const div = document.createElement('div');
+        div.textContent = area;
+        div.style.cursor = 'pointer';
+        div.onclick = () => {
+          locationInput.value = area;
+          suggestionsBox.style.display = 'none';
+        };
+        div.onmouseover = () => div.style.backgroundColor = '#f2f2f2';
+        div.onmouseout = () => div.style.backgroundColor = '#fff';
+        suggestionsBox.appendChild(div);
+      });
+      suggestionsBox.style.display = 'block';
+    });
+
+    locationInput.addEventListener('blur', () => {
+      setTimeout(() => {
+        suggestionsBox.style.display = 'none';
+      }, 200);
+    });
+
+    locationInput.addEventListener('focus', () => {
+      if (suggestionsBox.childElementCount > 0) {
+        suggestionsBox.style.display = 'block';
+      }
+    });
+
+    const form = document.getElementById('rescue-form');
+    const historyList = document.getElementById('history-list');
+    let rescueHistory = JSON.parse(localStorage.getItem('rescueHistory') || '[]');
+
+    function renderHistory() {
+      historyList.innerHTML = '';
+      if (!rescueHistory.length) {
+        const li = document.createElement('li');
+        li.textContent = 'No rescue reports yet.';
+        historyList.appendChild(li);
+        return;
+      }
+
+      rescueHistory.slice().reverse().forEach((report, idx) => {
+        const li = document.createElement('li');
+
+        const header = document.createElement('div');
+        header.className = 'report-header';
+
+        const title = document.createElement('span');
+        title.className = 'report-title';
+        title.textContent = `Rescue #${rescueHistory.length - idx} - ${report.location}`;
+
+        const btn = document.createElement('button');
+        btn.className = 'details-button';
+        btn.textContent = 'View Details';
+
+        const details = document.createElement('div');
+        details.className = 'report-details';
+        details.innerHTML = `
+          Rescued: <strong>${report.victimCount}</strong><br>
+          Additional Info: ${report.additionalInfo || 'N/A'}<br>
+          Back Service: ${report.backService ? 'Yes' : 'No'}<br>
+          Time: ${new Date(report.timestamp).toLocaleString()}
+        `;
+
+        btn.addEventListener('click', () => {
+          if (details.style.display === 'block') {
+            details.style.display = 'none';
+            btn.textContent = 'View Details';
+          } else {
+            details.style.display = 'block';
+            btn.textContent = 'Hide Details';
+          }
+        });
+
+        header.appendChild(title);
+        header.appendChild(btn);
+        li.appendChild(header);
+        li.appendChild(details);
+
+        historyList.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const location = form.location.value.trim();
+      const victimCount = form.victimCount.value.trim();
+      const additionalInfo = form.additionalInfo.value.trim();
+      const backService = form.backService.checked;
+      const timestamp = Date.now();
+
+      if (!location || !victimCount) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      rescueHistory.push({ location, victimCount, additionalInfo, backService, timestamp });
+      localStorage.setItem('rescueHistory', JSON.stringify(rescueHistory));
+      form.reset();
+      renderHistory();
+      alert('Rescue report submitted!');
+    });
+
+    window.onload = renderHistory;
+  </script>
+</body>
+</html>

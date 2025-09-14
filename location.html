@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enable Location - Welfy Connect</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Reset and typography */
+    * {
+      box-sizing: border-box;
+    }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: url('1.jpg') no-repeat center center/cover;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+    }
+
+    /* Left pane with welcome text and social icons */
+    .left-pane {
+      flex: 1.2;
+      background: rgba(0, 0, 0, 0.42);
+      color: #fff;
+      padding: 60px 55px 60px 65px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .left-pane h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: 1.8px;
+    }
+
+    .left-pane p {
+      font-size: 1.15rem;
+      line-height: 1.4;
+      color: #d0d0d0;
+      margin-bottom: 30px;
+      max-width: 420px;
+    }
+
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      margin-right: 18px;
+      color: #fff;
+      font-size: 1.45rem;
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+    }
+    .social-icons a:hover {
+      color: #28a745;
+    }
+
+    /* Right pane with location container */
+    .right-pane {
+      flex: 1.1;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 40px;
+      position: relative;
+      min-width: 360px;
+    }
+
+    .location-container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.94);
+      padding: 38px 40px 38px 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      font-size: 16px;
+      color: #333;
+      font-weight: 400;
+    }
+
+    .location-container h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 24px;
+      color: #222;
+    }
+
+    .location-container p {
+      margin-bottom: 28px;
+      font-size: 16px;
+      color: #555;
+      line-height: 1.45;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px 0;
+      font-weight: 600;
+      font-size: 16px;
+      color: #fff;
+      background: linear-gradient(to right, #28a745, #218838);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+
+    button:hover:not(:disabled) {
+      background: linear-gradient(to right, #218838, #1e7e34);
+      transform: scale(1.05);
+    }
+
+    button:disabled {
+      background: #a4d3a2;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #access-services {
+      display: none;
+      margin-top: 12px;
+    }
+
+    #location-status {
+      min-height: 22px;
+      margin-bottom: 0;
+      color: #28a745;
+      font-weight: 600;
+      font-size: 15px;
+      min-height: 22px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .left-pane {
+        flex: none;
+        width: 100%;
+        padding: 50px 30px;
+        text-align: center;
+      }
+      .left-pane h1 {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+      }
+      .left-pane p {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+      }
+      .social-icons a {
+        font-size: 1.3rem;
+      }
+      .right-pane {
+        flex: none;
+        width: 100%;
+        padding: 35px 20px;
+      }
+      .location-container {
+        max-width: 100%;
+        border-radius: 10px;
+        padding: 30px 24px;
+        box-shadow: none;
+      }
+      button {
+        padding: 12px 0;
+        font-size: 15px;
+      }
+    }
+  </style>
+  <!-- FontAwesome CDN for social icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+  <div class="container">
+    <!-- Left info pane -->
+    <div class="left-pane" aria-label="Welcome section">
+      <h1>Enable <br />Your Location</h1>
+      <p>
+        To provide you with the fastest and most accurate emergency assistance, Welfy Connect needs access to your device’s location.
+        Please enable location services to continue.
+      </p>
+      <div class="social-icons" aria-label="Social media links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <!-- Right action pane -->
+    <div class="right-pane" aria-label="Location enablement form">
+      <div class="location-container" role="main">
+        <h2>Enable Location Services</h2>
+        <p>Click the button below to allow access to your location.</p>
+        <button id="enable-location-btn" onclick="getLocation()" type="button">Enable Location</button>
+        <p id="location-status" aria-live="polite" aria-atomic="true"></p>
+        <button id="access-services" onclick="redirectToOptions()" type="button">Access Services</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getLocation() {
+      const status = document.getElementById('location-status');
+      const accessBtn = document.getElementById('access-services');
+      const enableBtn = document.getElementById('enable-location-btn');
+
+      if (navigator.geolocation) {
+        enableBtn.disabled = true;
+        status.style.color = '#555';
+        status.textContent = 'Requesting location permission...';
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            status.style.color = '#28a745';
+            status.textContent =
+              'Location Enabled! You can now access available services.';
+            accessBtn.style.display = 'block';
+          },
+          (error) => {
+            enableBtn.disabled = false;
+            status.style.color = '#dc3545';
+            if (error.code === error.PERMISSION_DENIED) {
+              status.textContent =
+                'Location access denied! Please enable it in browser settings.';
+            } else {
+              status.textContent = 'Unable to retrieve location.';
+            }
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+          }
+        );
+      } else {
+        status.style.color = '#dc3545';
+        status.textContent = 'Geolocation is not supported by this browser.';
+      }
+    }
+
+    function redirectToOptions() {
+      window.location.href = 'Options.html';
+    }
+  </script>
+</body>
+</html>
